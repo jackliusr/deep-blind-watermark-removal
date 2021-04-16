@@ -1,0 +1,569 @@
+= The model architecture
+----
+UnetVMS2AMv4(
+  (encoder): UnetEncoderD(
+    (down_convs): ModuleList(
+      (0): DownCoXvD(
+        (conv1): Conv2d(3, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (bn): ModuleList(
+          (0): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (conv2): ModuleList(
+          (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): DownCoXvD(
+        (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (bn): ModuleList(
+          (0): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (conv2): ModuleList(
+          (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (2): DownCoXvD(
+        (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (bn): ModuleList(
+          (0): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (conv2): ModuleList(
+          (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (3): DownCoXvD(
+        (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (bn): ModuleList(
+          (0): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (conv2): ModuleList(
+          (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (4): DownCoXvD(
+        (conv1): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (bn): ModuleList(
+          (0): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+  )
+  (image_decoder): UnetDecoderD(
+    (conv_final): Conv2d(32, 3, kernel_size=(1, 1), stride=(1, 1))
+    (up_convs): ModuleList(
+      (0): UpCoXvD(
+        (up_conv): ConvTranspose2d(128, 64, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(64, eps=64, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): UpCoXvD(
+        (up_conv): ConvTranspose2d(64, 32, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(32, eps=32, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (atts): ModuleList()
+  )
+  (mask_decoder): UnetDecoderD(
+    (conv_final): Conv2d(32, 1, kernel_size=(1, 1), stride=(1, 1))
+    (up_convs): ModuleList(
+      (0): UpCoXvD(
+        (up_conv): ConvTranspose2d(128, 64, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(64, eps=64, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): UpCoXvD(
+        (up_conv): ConvTranspose2d(64, 32, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(32, eps=32, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (atts): ModuleList()
+  )
+  (vm_decoder): UnetDecoderD(
+    (conv_final): Conv2d(32, 3, kernel_size=(1, 1), stride=(1, 1))
+    (up_convs): ModuleList(
+      (0): UpCoXvD(
+        (up_conv): ConvTranspose2d(128, 64, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(64, eps=64, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): UpCoXvD(
+        (up_conv): ConvTranspose2d(64, 32, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(32, eps=32, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (atts): ModuleList()
+  )
+  (shared_decoder): UnetDecoderDatt(
+    (up_convs): ModuleList(
+      (0): UpCoXvD(
+        (up_conv): ConvTranspose2d(512, 256, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv1): Conv2d(512, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): BatchNorm2d(256, eps=256, momentum=0.1, affine=True, track_running_stats=True)
+        (bn): ModuleList(
+          (0): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+      (1): UpCoXvD(
+        (up_conv): ConvTranspose2d(256, 128, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (conv1): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): BatchNorm2d(128, eps=128, momentum=0.1, affine=True, track_running_stats=True)
+        (bn): ModuleList(
+          (0): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (im_atts): ModuleList(
+      (0): SEBlock(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=256, out_features=16, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=16, out_features=256, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (1): SEBlock(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=128, out_features=8, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=8, out_features=128, bias=True)
+          (3): Sigmoid()
+        )
+      )
+    )
+    (vm_atts): ModuleList(
+      (0): SEBlock(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=256, out_features=16, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=16, out_features=256, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (1): SEBlock(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=128, out_features=8, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=8, out_features=128, bias=True)
+          (3): Sigmoid()
+        )
+      )
+    )
+    (mask_atts): ModuleList(
+      (0): SEBlock(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=256, out_features=16, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=16, out_features=256, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (1): SEBlock(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=128, out_features=8, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=8, out_features=128, bias=True)
+          (3): Sigmoid()
+        )
+      )
+    )
+  )
+  (s2am): VMSingleS2AM(
+    (down1): ResDownNew(
+      (model): DownCoXvD(
+        (conv1): Conv2d(4, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (conv2): ModuleList(
+          (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (down2): ResDownNew(
+      (model): DownCoXvD(
+        (conv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (conv2): ModuleList(
+          (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (down3): ResDownNew(
+      (model): DownCoXvD(
+        (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (conv2): ModuleList(
+          (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (down4): ResDownNew(
+      (model): DownCoXvD(
+        (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (pool): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (conv2): ModuleList(
+          (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (down5): ResDownNew(
+      (model): DownCoXvD(
+        (conv1): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(512, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(512, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(512, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(512, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (up1): ResUpNew(
+      (model): UpCoXvD(
+        (up_conv): ConvTranspose2d(512, 256, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(512, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(256, eps=256, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(256, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (up2): ResUpNew(
+      (model): UpCoXvD(
+        (up_conv): ConvTranspose2d(256, 128, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(128, eps=128, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(128, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (s2am2): RASC(
+      (connection): BasicLearningBlock(
+        (rconv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (rbn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (rconv2): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (rbn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (background_attention): GlobalAttentionModule(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (max_pool): AdaptiveMaxPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=256, out_features=8, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=8, out_features=128, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (mixed_attention): GlobalAttentionModule(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (max_pool): AdaptiveMaxPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=256, out_features=8, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=8, out_features=128, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (spliced_attention): GlobalAttentionModule(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (max_pool): AdaptiveMaxPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=256, out_features=8, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=8, out_features=128, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (gaussianMask): GaussianSmoothing()
+    )
+    (up3): ResUpNew(
+      (model): UpCoXvD(
+        (up_conv): ConvTranspose2d(128, 64, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(64, eps=64, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(64, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (s2am3): RASC(
+      (connection): BasicLearningBlock(
+        (rconv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (rbn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (rconv2): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (rbn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (background_attention): GlobalAttentionModule(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (max_pool): AdaptiveMaxPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=128, out_features=4, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=4, out_features=64, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (mixed_attention): GlobalAttentionModule(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (max_pool): AdaptiveMaxPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=128, out_features=4, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=4, out_features=64, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (spliced_attention): GlobalAttentionModule(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (max_pool): AdaptiveMaxPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=128, out_features=4, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=4, out_features=64, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (gaussianMask): GaussianSmoothing()
+    )
+    (up4): ResUpNew(
+      (model): UpCoXvD(
+        (up_conv): ConvTranspose2d(64, 32, kernel_size=(2, 2), stride=(2, 2))
+        (norm0): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        (conv1): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (norm1): InstanceNorm2d(32, eps=32, momentum=0.1, affine=False, track_running_stats=False)
+        (bn): ModuleList(
+          (0): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (1): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+          (2): InstanceNorm2d(32, eps=1e-05, momentum=0.1, affine=False, track_running_stats=False)
+        )
+        (conv2): ModuleList(
+          (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        )
+      )
+    )
+    (s2am4): RASC(
+      (connection): BasicLearningBlock(
+        (rconv1): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (rbn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (rconv2): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+        (rbn2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (background_attention): GlobalAttentionModule(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (max_pool): AdaptiveMaxPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=64, out_features=2, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=2, out_features=32, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (mixed_attention): GlobalAttentionModule(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (max_pool): AdaptiveMaxPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=64, out_features=2, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=2, out_features=32, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (spliced_attention): GlobalAttentionModule(
+        (avg_pool): AdaptiveAvgPool2d(output_size=1)
+        (max_pool): AdaptiveMaxPool2d(output_size=1)
+        (fc): Sequential(
+          (0): Linear(in_features=64, out_features=2, bias=True)
+          (1): ReLU(inplace=True)
+          (2): Linear(in_features=2, out_features=32, bias=True)
+          (3): Sigmoid()
+        )
+      )
+      (gaussianMask): GaussianSmoothing()
+    )
+    (im): Conv2d(32, 3, kernel_size=(1, 1), stride=(1, 1))
+  )
+)
+----
